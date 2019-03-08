@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zy.project.dao.ProjectDao">
+
+	<select id="getPro" parameterType="com.zy.project.pojo.Projects" resultMap="pall" >
+		select * from projects p LEFT JOIN `user` u on p.ps_us_id=u.us_id
+		LEFT  JOIN projectstype pp on p.ps_pst_id=pp.pst_id where 1=1
+       <if test="ps_name !=null and ps_name !=''" >
+           and p.ps_name=#{ps_name}
+	   </if>
+		<!--<if test="user.us_name !=null and user.us_name !=''" >
+			and u.us_name=#{user.us_name}
+		</if>-->
+
+	<!--	<if test="pst.ps_name !=null and pst.ps_name !=''" >
+			and pp.ps_name=#{pst.ps_name}
+		</if>-->
+	</select>
+	<resultMap id="pall" type="com.zy.project.pojo.Projects">
+		<id column="ps_id" property="ps_id"/>
+		<result column="ps_us_id" property="ps_us_id" />
+		<result column="ps_cust_name" property="ps_cust_name" />
+		<result column="ps_cust_phone" property="ps_cust_phone" />
+		<result column="ps_cust_address" property="ps_cust_address" />
+		<result column="ps_pst_id" property="ps_pst_id" />
+		<result column="ps_file" property="ps_file" />
+		<result column="ps_name" property="ps_name" />
+		<result column="ps_goal" property="ps_goal" />
+		<result column="ps_address" property="ps_address" />
+		<result column="ps_money" property="ps_money" />
+		<result column="ps_days" property="ps_days" />
+		<result column="ps_video" property="ps_video" />
+		<result column="ps_story" property="ps_story" />
+		<result column="ps_support" property="ps_support" />
+		<result column="ps_repay" property="ps_repay" />
+		<result column="ps_aboutme" property="ps_aboutme" />
+		<result column="ps_type" property="ps_type" />
+		<result column="ps_starttime" property="ps_starttime" />
+		<result column="ps_endtime" property="ps_endtime" />
+		<result column="ps_getmoney" property="ps_getmoney" />
+		<result column="ps_getpeople" property="ps_getpeople" />
+        <association property="user" javaType="com.zy.project.pojo.User">
+            <id column="us_id" property="us_id"/>
+			 <result column="us_name" property="us_name"/>
+		</association>
+		<association property="pst" javaType="com.zy.project.pojo.Projectstype">
+			<id column="pst_id" property="pst_id"/>
+			<result column="pst_name" property="pst_name"/>
+		</association>
+	</resultMap>
+</mapper>
